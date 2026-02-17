@@ -1,0 +1,18 @@
+WITH CUSTOMER_REVENUE AS(
+    SELECT c.customerid,
+           concat(c.firstname,' ',c.lastname) AS customer_name,
+           COUNT(DISTINCT O.ORDERID) AS ORDER_COUNT,
+           SUM(OI.QUANTITY * OI.UNITPRICE ) AS REVENUE
+    FROM L1_LANDING.CUSTOMERS C
+    JOIN L1_LANDING.ORDERS O
+        ON C.CUSTOMERID = O.CUSTOMERID
+    JOIN L1_LANDING.ORDERITEMS OI 
+        ON O.ORDERID = OI.ORDERID
+    GROUP BY c.customerid, concat(c.firstname,' ',c.lastname)
+    ORDER BY REVENUE DESC
+)
+SELECT CUSTOMERID,
+       CUSTOMER_NAME,
+       ORDER_COUNT,
+       REVENUE
+FROM CUSTOMER_REVENUE

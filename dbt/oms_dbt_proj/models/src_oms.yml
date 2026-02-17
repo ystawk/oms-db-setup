@@ -1,0 +1,11 @@
+sources:
+  - name: landing
+    database: DLF_TEST
+    schema: L1_LANDING
+    tables:
+      - name: cust
+        identifier: CUSTOMERS
+      - name: ordr
+        identifier: ORDERS
+      - name: orditm
+        identifier: ORDERITEMS

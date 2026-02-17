@@ -9,9 +9,8 @@ SELECT ORDERID,
             WHEN STATUS = '02' THEN 'Completed'
             WHEN STATUS = '03' THEN 'Cancelled'
             ELSE 'Unknown' END AS STATUSDESC,
-        CASE WHEN STOREID = 1000 then 'Online'
-             ELSE 'In-store'
-        END AS ORDER_CHANNEL,
-       updated_at,
-       CURRENT_TIMESTAMP AS DBT_UPDATED_AT
- FROM {{ source("landing", 'orders')}}
+       updated_at
+ FROM {{ source('landing', 'ordr') }}
+ {% if is_incremental() %}
+      WHERE updated_at > (SELECT COALESCE(MAX(updated_at), '1900-01-01') FROM {{ this }})
+ {% endif %}

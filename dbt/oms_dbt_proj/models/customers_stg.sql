@@ -9,4 +9,4 @@ SELECT CUSTOMERID,
        ZIPCODE,
        UPDATED_AT,
        CONCAT(FIRSTNAME, ' ', LASTNAME) AS CUSTOMERNAME
-FROM {{ source('landing', 'customers') }}
+FROM {{ source('landing', 'cust') }}

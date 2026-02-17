@@ -1,0 +1,39 @@
+models:
+  - name: customers_stg
+    description: "A collection of generic tests for the OMS project."
+    columns:
+      - name: Email
+        tests:
+          - string_not_empty:
+              config:
+                severity: error
+  - name: orders_stg
+    description: "A collection of accepted values for the OMS project."
+    columns:
+      - name: OrderId
+        tests:
+          - not_null
+          - unique:
+              config:
+                severity: error
+
+      - name: StatusCd
+        description: "{{ doc('StatusCD')}}"
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['01', '02', '03']
+              config:
+                severity: warn
+
+  - name: orderitems_stg
+    description: "A collection of accepted values for the OMS project."
+    columns:
+      - name: OrderId
+        tests:
+          - relationships:
+              arguments:
+                to: ref('orders_stg')
+                field: OrderId
+              config:
+                severity: error

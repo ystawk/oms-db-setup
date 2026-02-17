@@ -1,4 +1,3 @@
-{{ config(materialized='table') }}
 SELECT os.customerid,
        cs.customername,
        SUM(os.ordercount) AS ordercount,

@@ -5,4 +5,4 @@ SELECT ORDERITEMID,
        UNITPRICE,
        QUANTITY * UNITPRICE AS TOTALPRICE,
        UPDATED_AT
-  FROM {{ source("landing", "orderitems") }}
+  FROM L1_LANDING.ORDERITEMS
